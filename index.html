@@ -187,6 +187,15 @@
         }
 
         /* Estilos para el contenedor de video y concepto */
+        .video-container iframe {
+                width: 100%;
+                max-width: 560px; /* Ancho máximo del video */
+                height: 315px; /* Altura fija */
+                border: none; /* Elimina el borde predeterminado */
+                border-radius: 10px; /* Bordes redondeados */
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+            }
+        
         .video-concept-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -439,21 +448,17 @@
         </form>
 
         <!-- Video y concepto -->
+       <!-- Video incrustado de YouTube -->
         <div class="video-container" style="margin-top: 20px; text-align: center;">
-  <a href="https://youtube.com/shorts/9GYwrGq4Rzs" target="_blank">Ver video sobre concentración en YouTube</a>
-</div>
-            <div class="concept-container">
-                <h4>La concentración</h4>
-                <p>
-                    ¿Dificultades para concentrarte? La concentración es clave para alcanzar tus metas, pero muchas veces las distracciones y el desorden nos juegan en contra. En este video, descubrirás formas prácticas y efectivas para mantener tu enfoque y trabajar de manera más eficiente. Te compartimos algunos cambios simples que pueden hacer una gran diferencia en tu productividad y en cómo gestionas tu tiempo. ¡Dale play y comienza a mejorar tu concentración de inmediato!
-                </p>
-            </div>
+            <iframe 
+                width="560" 
+                height="315" 
+                src="https://youtube.com/embed/9GYwrGq4Rzs" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
         </div>
-
-        <!-- Video fuera del recuadro, debajo del concepto -->
-       <div class="video-container" style="margin-top: 20px; text-align: center;">
-  <a href="https://youtube.com/shorts/trQZnMF_pwQ" target="_blank">Ver video sobre gestión del tiempo en YouTube</a>
-</div>
 
         <!-- Imagen a la derecha y concepto a la izquierda -->
         <div class="video-concept-container reverse">
@@ -461,21 +466,24 @@
                 <h4>¿Cómo gestionar tu tiempo?</h4>
                 <p>
                     La gestión del tiempo es esencial para ser productivo y sentirte más tranquilo en tu día a día. En este video, te compartimos algunas estrategias clave para aprovechar mejor tu tiempo, establecer prioridades claras y mantenerte enfocado en lo que realmente importa. Con pequeños ajustes, podrás tomar el control de tu jornada y avanzar de forma más efectiva hacia tus objetivos. ¡No te lo pierdas y empieza a organizar tu tiempo de una manera mucho más eficiente y productiva!
-                </p>
+        </p>
             </div>
             <div class="video-container">
                 <img src="Imagenes/img2.png" alt="Gestión del tiempo">
             </div>
         </div>
 
-        <!-- Video fuera del recuadro, debajo del concepto -->
+        <!-- Video incrustado de YouTube -->
         <div class="video-container" style="margin-top: 20px; text-align: center;">
-            <video width="80%" controls>
-                <source src="videos/vid2.mp4" type="video/mp4">
-                Tu navegador no soporta el formato de video.
-            </video>
+            <iframe 
+                width="560" 
+                height="315" 
+                src="https://www.youtube.com/embed/trQZnMF_pwQ" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
         </div>
-
         <!-- Motivación -->
         <div class="motivacion">
             <p>
