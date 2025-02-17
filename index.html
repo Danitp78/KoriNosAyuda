@@ -326,126 +326,91 @@
     <div id="informacion1" class="informacion">
         <h3>Conócete a ti mismo</h3>
         <p>Aquí encontrarás información y herramientas para conocerte mejor y descubrir tus fortalezas.</p>
-        <form>
-            <ol>
-                <li>
-                    <label for="pregunta1">¿Qué actividades te hacen sentir más feliz y realizado?</label>
-                    <textarea id="pregunta1" name="pregunta1" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>
-                </li>
-                <li>
-                    <label for="pregunta2">¿Cuáles son tus mayores fortalezas y cómo las utilizas en tu día a día?</label>
-                    <textarea id="pregunta2" name="pregunta2" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>
-                </li>
-                <li>
-                    <label for="pregunta3">¿Qué valores son más importantes para ti y por qué?</label>
-                    <textarea id="pregunta3" name="pregunta3" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>
-                </li>
-                <li>
-                    <label for="pregunta4">¿Cuáles son tus metas a corto y largo plazo?</label>
-                    <textarea id="pregunta4" name="pregunta4" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>
-                </li>
-                <li>
-                    <label for="pregunta5">¿Qué miedos o inseguridades te impiden avanzar?</label>
-                    <textarea id="pregunta5" name="pregunta5" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>
-                </li>
-                <li>
-                    <label for="pregunta6">¿Cómo te describirías a ti mismo en tres palabras?</label>
-                    <input type="text" id="pregunta6" name="pregunta6" placeholder="Escribe tu respuesta aquí...">
-                </li>
-                <li>
-                    <label for="pregunta7">¿Qué habilidades te gustaría desarrollar o mejorar?</label>
-                    <textarea id="pregunta7" name="pregunta7" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>
-                </li>
-                <li>
-                    <label for="pregunta8">¿Qué te gustaría cambiar de tu vida actual y por qué?</label>
-                    <textarea id="pregunta8" name="pregunta8" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>
-                </li>
-            </ol>
-        </form>
-        <button class="boton-retroceder" onclick="mostrarRecuadros()">Volver a los recuadros</button>
-    </div>
-    <div id="informacion2" class="informacion">
-        <h3>Activando tu potencial</h3>
-        <p>Descubre cómo maximizar tu potencial y alcanzar tus metas con nuestros recursos especializados.</p>
-        <form>
-            <ol>
-                <li>
-                    <label>¿Cómo calificarías tu capacidad para organizar tu tiempo y cumplir con tus responsabilidades?</label>
-                    <div>
-                        <input type="radio" id="tiempo-muy-buena" name="organizacion-tiempo" value="Muy Buena">
-                        <label for="tiempo-muy-buena">Muy Buena</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="tiempo-regular" name="organizacion-tiempo" value="Regular">
-                        <label for="tiempo-regular">Regular</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="tiempo-muy-mala" name="organizacion-tiempo" value="Muy Mala">
-                        <label for="tiempo-muy-mala">Muy Mala</label>
-                    </div>
-                </li>
-                <li>
-                    <label>¿Qué actividades te generan más estrés o emociones negativas en tu día a día?</label>
-                    <div>
-                        <input type="radio" id="estres-estudio" name="actividades-estres" value="Estudio">
-                        <label for="estres-estudio">Estudio</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="estres-familia" name="actividades-estres" value="Tiempo en familia">
-                        <label for="estres-familia">Tiempo en familia</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="estres-amigos" name="actividades-estres" value="Relaciones con amigos o pareja">
-                        <label for="estres-amigos">Relaciones con amigos o pareja</label>
-                    </div>
-                </li>
-                <li>
-                    <label>Cuando sientes que te falta tiempo, ¿cómo sueles reaccionar?</label>
-                    <div>
-                        <input type="radio" id="reaccion-procrastinar" name="reaccion-tiempo" value="Me siento abrumado y procrastino">
-                        <label for="reaccion-procrastinar">Me siento abrumado y procrastino</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="reaccion-organizar" name="reaccion-tiempo" value="Intento organizarme, pero no sé cómo">
-                        <label for="reaccion-organizar">Intento organizarme, pero no sé cómo</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="reaccion-planificacion" name="reaccion-tiempo" value="Hago lo que puedo sin planificación">
-                        <label for="reaccion-planificacion">Hago lo que puedo sin planificación</label>
-                    </div>
-                </li>
-                <li>
-                    <label>¿Qué te gustaría mejorar más en tu vida diaria?</label>
-                    <div>
-                        <input type="radio" id="mejorar-organizacion" name="mejorar-vida" value="La organización y el tiempo">
-                        <label for="mejorar-organizacion">La organización y el tiempo</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="mejorar-habitos" name="mejorar-vida" value="Establecer hábitos saludables como la lectura, hacer ejercicio, etc.">
-                        <label for="mejorar-habitos">Establecer hábitos saludables como la lectura, hacer ejercicio, etc.</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="mejorar-motivacion" name="mejorar-vida" value="Mejorar la motivación y enfoque de metas">
-                        <label for="mejorar-motivacion">Mejorar la motivación y enfoque de metas</label>
-                    </div>
-                </li>
-                <li>
-                    <label>¿Cómo influyen tus emociones en la forma en que gestionas tus actividades diarias?</label>
-                    <div>
-                        <input type="radio" id="mejorar-organizacion" name="mejorar-vida" value="Cuando estoy estresado o ansioso me cuesta mucho organizarme y completar mis tareas.">
-                        <label for="mejorar-organizacion">Cuando estoy estresado o ansioso me cuesta mucho organizarme y completar mis tareas.</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="mejorar-habitos" name="mejorar-vida" value="Si estoy feliz o motivado/a">
-                        <label for="mejorar-habitos">Si estoy feliz o motivado/a</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="mejorar-motivacion" name="mejorar-vida" value="Mis emociones me distraen pero intento avanzar con mis tareas aunque me cueste.">
-                        <label for="mejorar-motivacion">Mis emociones me distraen pero intento avanzar con mis tareas aunque me cueste.</label>
-                    </div>
-                </li>
-            </ol>
-        </form>
+       <form>
+                <ol>
+                    <li>
+                        <!-- Pregunta 1 -->
+                        <label>¿Cómo calificarías tu capacidad para organizar tu tiempo y cumplir con tus responsabilidades?</label>
+                        <div>
+                            <input type="radio" id="tiempo-muy-buena" name="organizacion-tiempo" value="Muy Buena">
+                            <label for="tiempo-muy-buena">Muy Buena</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="tiempo-regular" name="organizacion-tiempo" value="Regular">
+                            <label for="tiempo-regular">Regular</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="tiempo-muy-mala" name="organizacion-tiempo" value="Muy Mala">
+                            <label for="tiempo-muy-mala">Muy Mala</label>
+                        </div>
+                    </li>
+                    <li>
+                        <!-- Pregunta 2 -->
+                        <label>¿Qué actividades te generan más estrés o emociones negativas en tu día a día?</label>
+                        <div>
+                            <input type="radio" id="estres-estudio" name="actividades-estres" value="Estudio">
+                            <label for="estres-estudio">Estudio</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="estres-familia" name="actividades-estres" value="Tiempo en familia">
+                            <label for="estres-familia">Tiempo en familia</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="estres-amigos" name="actividades-estres" value="Relaciones con amigos o pareja">
+                            <label for="estres-amigos">Relaciones con amigos o pareja</label>
+                        </div>
+                    </li>
+                    <li>
+                    <!-- Pregunta 3 -->
+                        <label>Cuando sientes que te falta tiempo, ¿cómo sueles reaccionar?</label>
+                        <div>
+                            <input type="radio" id="reaccion-procrastinar" name="reaccion-tiempo" value="Me siento abrumado y procrastino">
+                            <label for="reaccion-procrastinar">Me siento abrumado y procrastino</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="reaccion-organizar" name="reaccion-tiempo" value="Intento organizarme, pero no sé cómo">
+                            <label for="reaccion-organizar">Intento organizarme, pero no sé cómo</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="reaccion-planificacion" name="reaccion-tiempo" value="Hago lo que puedo sin planificación">
+                            <label for="reaccion-planificacion">Hago lo que puedo sin planificación</label>
+                        </div>
+                    </li>
+                    <!-- Pregunta 4 -->
+                    <li>
+                        <label>¿Qué te gustaría mejorar más en tu vida diaria?</label>
+                        <div>
+                            <input type="radio" id="mejorar-organizacion" name="mejorar-vida" value="La organización y el tiempo">
+                            <label for="mejorar-organizacion">La organización y el tiempo</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="mejorar-habitos" name="mejorar-vida" value="Establecer hábitos saludables como la lectura, hacer ejercicio, etc.">
+                            <label for="mejorar-habitos">Establecer hábitos saludables como la lectura, hacer ejercicio, etc.</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="mejorar-motivacion" name="mejorar-vida" value="Mejorar la motivación y enfoque de metas">
+                            <label for="mejorar-motivacion">Mejorar la motivación y enfoque de metas</label>
+                        </div>
+                    </li>
+
+                    <!-- Pregunta 5 -->
+                    <li>
+                        <label>¿Cómo influyen tus emociones en la forma en que gestionas tus actividades diarias?</label>
+                        <div>
+                            <input type="radio" id="emociones-estres" name="emociones-gestion" value="Cuando estoy estresado o ansioso me cuesta mucho organizarme y completar mis tareas.">
+                            <label for="emociones-estres">Cuando estoy estresado o ansioso me cuesta mucho organizarme y completar mis tareas.</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="emociones-felicidad" name="emociones-gestion" value="Si estoy feliz o motivado/a, gestiono mejor mis actividades.">
+                            <label for="emociones-felicidad">Si estoy feliz o motivado/a, gestiono mejor mis actividades.</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="emociones-distraccion" name="emociones-gestion" value="Mis emociones me distraen, pero intento avanzar con mis tareas aunque me cueste.">
+                            <label for="emociones-distraccion">Mis emociones me distraen, pero intento avanzar con mis tareas aunque me cueste.</label>
+                        </div>
+                    </li>
+                </ol>
+            </form>
 
         <!-- Video y concepto -->
        <!-- Video incrustado de YouTube -->
