@@ -1,634 +1,649 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wilhelm Nos Ayuda</title>
-    <style>
-        /* Estilos para el fondo animado de círculos */
-        .circles-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none; /* Permite hacer clic en los elementos de la página */
-            z-index: -1; /* Coloca el fondo detrás del contenido */
-        }
-
-        .circle {
-            position: absolute;
-            border-radius: 50%; /* Hace que los círculos sean redondos */
-            animation: float 10s infinite ease-in-out; /* Animación de flotación */
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0); /* Posición inicial y final */
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Wilhelm Nos Ayuda</title>
+        <style>
+            /* Estilos para el fondo animado de círculos */
+            .circles-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none; /* Permite hacer clic en los elementos de la página */
+                z-index: -1; /* Coloca el fondo detrás del contenido */
             }
-            50% {
-                transform: translateY(-20px); /* Movimiento hacia arriba */
+
+            .circle {
+                position: absolute;
+                border-radius: 50%; /* Hace que los círculos sean redondos */
+                animation: float 10s infinite ease-in-out; /* Animación de flotación */
             }
-        }
 
-        /* Estilos generales de la página */
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            scroll-behavior: smooth; /* Desplazamiento suave */
-        }
-
-        /* Estilos para la sección de inicio */
-        #inicio {
-            background-size: cover;
-            background-position: center;
-            height: 100vh; /* Ocupa toda la altura de la pantalla */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            flex-direction: column;
-        }
-
-        #inicio h1 {
-            font-size: 4rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra para el texto */
-            background-color: rgba(0, 0, 0, 0.6); /* Fondo semitransparente */
-            padding: 20px 40px;
-            border-radius: 15px;
-            border: 2px solid white;
-            transition: font-size 0.5s ease; /* Transición suave para el tamaño */
-        }
-
-        #inicio h1.reducido {
-            font-size: 2rem; /* Tamaño reducido después de la cuenta regresiva */
-        }
-
-        /* Estilos para los recuadros interactivos */
-        .recuadros-container {
-            display: none; /* Oculto inicialmente */
-            justify-content: space-around;
-            margin-top: 20px;
-        }
-
-        .recuadro {
-            width: 30%;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease; /* Efectos al pasar el mouse */
-            border: 2px solid #007BFF; /* Borde azul */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra sutil */
-        }
-
-        .recuadro:hover {
-            background-color: rgba(255, 255, 255, 1); /* Fondo más sólido al pasar el mouse */
-            transform: scale(1.05); /* Efecto de escala */
-        }
-
-        .recuadro h2 {
-            font-size: 1.5rem;
-            color: #007BFF; /* Color azul para los títulos */
-        }
-
-        .recuadro img {
-            width: 50%;
-            height: auto;
-            border-radius: 10px;
-            margin-bottom: 10px;
-        }
-
-        .recuadro p {
-            font-size: 1rem;
-            color: #333; /* Color de texto oscuro */
-            text-align: justify;
-        }
-
-        /* Estilos para las secciones de información */
-        .informacion {
-            display: none;
-            margin-top: 20px;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
-            border-radius: 10px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            text-align: left;
-            animation: fadeIn 0.5s ease-in-out; /* Animación de aparición */
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0; /* Inicia invisible */
-            }
-            to {
-                opacity: 1; /* Termina visible */
-            }
-        }
-
-        .informacion h3 {
-            font-size: 2rem;
-            color: #007BFF; /* Color azul para los títulos */
-            text-align: center;
-        }
-
-        .informacion p {
-            font-size: 1.1rem;
-            color: #333; /* Color de texto oscuro */
-        }
-
-        .informacion form {
-            margin-top: 20px;
-        }
-
-        .informacion label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #333; /* Color de texto oscuro */
-        }
-
-        .informacion textarea,
-        .informacion input[type="text"],
-        .informacion input[type="radio"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 1rem;
-            resize: vertical; /* Permite redimensionar verticalmente */
-            margin-bottom: 15px;
-        }
-
-        .informacion textarea {
-            min-height: 100px; /* Altura mínima para los textareas */
-        }
-
-        .informacion button {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            background-color: #007BFF; /* Color azul */
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease; /* Efecto de transición */
-        }
-
-        .informacion button:hover {
-            background-color: #0056b3; /* Color azul más oscuro al pasar el mouse */
-        }
-
-        /* Estilos para el contenedor de video y concepto */
-        .video-concept-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .video-container {
-            width: 100%;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        .video-container img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-        }
-
-        .concept-container {
-            padding: 20px;
-            background-color: rgba(249, 249, 249, 0.95); /* Fondo semitransparente */
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-        }
-
-        .concept-container h4 {
-            margin-top: 0;
-            font-size: 1.5rem;
-            color: #007BFF; /* Color azul para los títulos */
-        }
-
-        .concept-container p {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: #333; /* Color de texto oscuro */
-        }
-
-        .video-container iframe {
-            width: 100%;
-            max-width: 560px; /* Ancho máximo del video */
-            height: 315px; /* Altura fija */
-            border: none; /* Elimina el borde predeterminado */
-            border-radius: 10px; /* Bordes redondeados */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-        }
-
-        /* Estilos para la sección de motivación */
-        .motivacion {
-            background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro semitransparente */
-            color: white;
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 10px;
-            border: 2px solid white;
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
-        }
-
-        /* Estilos para el chat */
-        .chat-container {
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: center;
-            padding: 20px;
-            background-color: rgba(249, 249, 249, 0.95); /* Fondo semitransparente */
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-        }
-
-        .chat-container h4 {
-            font-size: 1.5rem;
-            color: #007BFF; /* Color azul para los títulos */
-            margin-bottom: 10px;
-        }
-
-        .chat-container p {
-            font-size: 1rem;
-            color: #333; /* Color de texto oscuro */
-            margin-bottom: 20px;
-        }
-
-        /* Estilos para el botón de retroceder */
-        .boton-retroceder {
-            display: block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            background-color: #007BFF; /* Color azul */
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease; /* Efecto de transición */
-        }
-
-        .boton-retroceder:hover {
-            background-color: #0056b3; /* Color azul más oscuro al pasar el mouse */
-        }
-    </style>
-</head>
-<body>
-    <!-- Fondo animado de círculos -->
-    <div class="circles-container" id="circles-container"></div>
-
-    <!-- Contenido principal -->
-    <div id="inicio">
-        <h1 id="titulo">WILHELM NOS AYUDA</h1>
-        <p id="cuenta-regresiva" style="font-size: 1.5rem; margin-top: 20px;">Comenzando en <span id="tiempo">3</span> segundos...</p>
-
-        <!-- Recuadros interactivos -->
-        <div class="recuadros-container" id="recuadros-container">
-            <div class="recuadro" onclick="mostrarInformacion(1)">
-                <img src="Imagenes/conocete.jpg" alt="Conócete a ti mismo">
-                <h2>Conócete a ti mismo</h2>
-                <p>Descubre quién eres, tus fortalezas y debilidades para mejorar tu autoconocimiento.</p>
-            </div>
-            <div class="recuadro" onclick="mostrarInformacion(2)">
-                <img src="Imagenes/potencial.jpg" alt="Activando tu potencial">
-                <h2>Activando tu potencial</h2>
-                <p>Aprende técnicas y estrategias para maximizar tu potencial y alcanzar tus metas.</p>
-            </div>
-            <div class="recuadro" onclick="mostrarInformacion(3)">
-                <img src="Imagenes/dudas.jpg" alt="Tus dudas con Kori">
-                <h2>Tus dudas con Kori</h2>
-                <p>Resuelve tus dudas y obtén respuestas rápidas con nuestro asistente virtual Kori.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Información de los recuadros -->
-    <div id="informacion1" class="informacion">
-        <h3>Conócete a ti mismo</h3>
-        <p>Aquí encontrarás información y herramientas para conocerte mejor y descubrir tus fortalezas.</p>
-        <form>
-            <ol>
-                <li>
-                    <label for="pregunta1">¿Qué actividades te hacen sentir más feliz y realizado?</label>
-                    <textarea id="pregunta1" name="pregunta1" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>
-                </li>
-                <li>
-                    <label for="pregunta2">¿Cuáles son tus mayores fortalezas y cómo las utilizas en tu día a día?</label>
-                    <textarea id="pregunta2" name="pregunta2" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>
-                </li>
-                <li>
-                    <label for="pregunta3">¿Qué valores son más importantes para ti y por qué?</label>
-                    <textarea id="pregunta3" name="pregunta3" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>
-                </li>
-                <li>
-                    <label for="pregunta4">¿Cuáles son tus metas a corto y largo plazo?</label>
-                    <textarea id="pregunta4" name="pregunta4" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>
-                </li>
-                <li>
-                    <label for="pregunta5">¿Qué miedos o inseguridades te impiden avanzar?</label>
-                    <textarea id="pregunta5" name="pregunta5" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>
-                </li>
-                <li>
-                    <label for="pregunta6">¿Cómo te describirías a ti mismo en tres palabras?</label>
-                    <input type="text" id="pregunta6" name="pregunta6" placeholder="Escribe tu respuesta aquí...">
-                </li>
-                <li>
-                    <label for="pregunta7">¿Qué habilidades te gustaría desarrollar o mejorar?</label>
-                    <textarea id="pregunta7" name="pregunta7" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>
-                </li>
-                <li>
-                    <label for="pregunta8">¿Qué te gustaría cambiar de tu vida actual y por qué?</label>
-                    <textarea id="pregunta8" name="pregunta8" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>
-                </li>
-            </ol>
-        </form>
-        <button class="boton-retroceder" onclick="mostrarRecuadros()">Volver a los recuadros</button>
-    </div>
-    <div id="informacion2" class="informacion">
-        <h3>Activando tu potencial</h3>
-        <p>Descubre cómo maximizar tu potencial y alcanzar tus metas con nuestros recursos especializados.</p>
-        <form>
-            <ol>
-                <li>
-                    <label>¿Cómo calificarías tu capacidad para organizar tu tiempo y cumplir con tus responsabilidades?</label>
-                    <div>
-                        <input type="radio" id="tiempo-muy-buena" name="organizacion-tiempo" value="Muy Buena">
-                        <label for="tiempo-muy-buena">Muy Buena</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="tiempo-regular" name="organizacion-tiempo" value="Regular">
-                        <label for="tiempo-regular">Regular</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="tiempo-muy-mala" name="organizacion-tiempo" value="Muy Mala">
-                        <label for="tiempo-muy-mala">Muy Mala</label>
-                    </div>
-                </li>
-                <li>
-                    <label>¿Qué actividades te generan más estrés o emociones negativas en tu día a día?</label>
-                    <div>
-                        <input type="radio" id="estres-estudio" name="actividades-estres" value="Estudio">
-                        <label for="estres-estudio">Estudio</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="estres-familia" name="actividades-estres" value="Tiempo en familia">
-                        <label for="estres-familia">Tiempo en familia</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="estres-amigos" name="actividades-estres" value="Relaciones con amigos o pareja">
-                        <label for="estres-amigos">Relaciones con amigos o pareja</label>
-                    </div>
-                </li>
-                <li>
-                    <label>Cuando sientes que te falta tiempo, ¿cómo sueles reaccionar?</label>
-                    <div>
-                        <input type="radio" id="reaccion-procrastinar" name="reaccion-tiempo" value="Me siento abrumado y procrastino">
-                        <label for="reaccion-procrastinar">Me siento abrumado y procrastino</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="reaccion-organizar" name="reaccion-tiempo" value="Intento organizarme, pero no sé cómo">
-                        <label for="reaccion-organizar">Intento organizarme, pero no sé cómo</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="reaccion-planificacion" name="reaccion-tiempo" value="Hago lo que puedo sin planificación">
-                        <label for="reaccion-planificacion">Hago lo que puedo sin planificación</label>
-                    </div>
-                </li>
-                <li>
-                    <label>¿Qué te gustaría mejorar más en tu vida diaria?</label>
-                    <div>
-                        <input type="radio" id="mejorar-organizacion" name="mejorar-vida" value="La organización y el tiempo">
-                        <label for="mejorar-organizacion">La organización y el tiempo</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="mejorar-habitos" name="mejorar-vida" value="Establecer hábitos saludables como la lectura, hacer ejercicio, etc.">
-                        <label for="mejorar-habitos">Establecer hábitos saludables como la lectura, hacer ejercicio, etc.</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="mejorar-motivacion" name="mejorar-vida" value="Mejorar la motivación y enfoque de metas">
-                        <label for="mejorar-motivacion">Mejorar la motivación y enfoque de metas</label>
-                    </div>
-                </li>
-                <li>
-                    <label>¿Cómo influyen tus emociones en la forma en que gestionas tus actividades diarias?</label>
-                    <div>
-                        <input type="radio" id="emociones-estres" name="emociones-gestion" value="Cuando estoy estresado o ansioso me cuesta mucho organizarme y completar mis tareas.">
-                        <label for="emociones-estres">Cuando estoy estresado o ansioso me cuesta mucho organizarme y completar mis tareas.</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="emociones-felicidad" name="emociones-gestion" value="Si estoy feliz o motivado/a, gestiono mejor mis actividades.">
-                        <label for="emociones-felicidad">Si estoy feliz o motivado/a, gestiono mejor mis actividades.</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="emociones-distraccion" name="emociones-gestion" value="Mis emociones me distraen, pero intento avanzar con mis tareas aunque me cueste.">
-                        <label for="emociones-distraccion">Mis emociones me distraen, pero intento avanzar con mis tareas aunque me cueste.</label>
-                    </div>
-                </li>
-            </ol>
-        </form>
-
-        <!-- Video y concepto -->
-        <div class="video-concept-container">
-            <div class="video-container">
-                <img src="Imagenes/img1.png" alt="Concentración">
-            </div>
-            <div class="concept-container">
-                <h4>La concentración</h4>
-                <p>
-                    ¿Dificultades para concentrarte? La concentración es clave para alcanzar tus metas, pero muchas veces las distracciones y el desorden nos juegan en contra. En este video, descubrirás formas prácticas y efectivas para mantener tu enfoque y trabajar de manera más eficiente. Te compartimos algunos cambios simples que pueden hacer una gran diferencia en tu productividad y en cómo gestionas tu tiempo. ¡Dale play y comienza a mejorar tu concentración de inmediato!
-                </p>
-            </div>
-        </div>
-
-        <!-- Video incrustado de YouTube -->
-        <div class="video-container" style="margin-top: 20px; text-align: center;">
-            <iframe 
-                width="560" 
-                height="315" 
-                src="https://www.youtube.com/embed/9GYwrGq4Rzs" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
-        </div>
-
-        <!-- Imagen a la derecha y concepto a la izquierda -->
-        <div class="video-concept-container reverse">
-            <div class="concept-container">
-                <h4>¿Cómo gestionar tu tiempo?</h4>
-                <p>
-                    La gestión del tiempo es esencial para ser productivo y sentirte más tranquilo en tu día a día. En este video, te compartimos algunas estrategias clave para aprovechar mejor tu tiempo, establecer prioridades claras y mantenerte enfocado en lo que realmente importa. Con pequeños ajustes, podrás tomar el control de tu jornada y avanzar de forma más efectiva hacia tus objetivos. ¡No te lo pierdas y empieza a organizar tu tiempo de una manera mucho más eficiente y productiva!
-                </p>
-            </div>
-            <div class="video-container">
-                <img src="Imagenes/img2.png" alt="Gestión del tiempo">
-            </div>
-        </div>
-
-        <!-- Video incrustado de YouTube -->
-        <div class="video-container" style="margin-top: 20px; text-align: center;">
-            <iframe 
-                width="560" 
-                height="315" 
-                src="https://www.youtube.com/embed/trQZnMF_pwQ" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
-        </div>
-
-        <!-- Motivación -->
-        <div class="motivacion">
-            <p>
-                "Sabemos que ser adolescente puede ser complicado, pero en esta sección
-                encontrarás testimonios y consejos de docentes que están aquí para apoyarte. Ellos
-                comparten sus experiencias y perspectivas, mostrándote que, aunque a veces
-                parezca difícil, siempre tendrás la capacidad de sacar tu mejor versión."
-            </p>
-        </div>
-        <button class="boton-retroceder" onclick="mostrarRecuadros()">Volver a los recuadros</button>
-    </div>
-    <div id="informacion3" class="informacion">
-        <h3>Tus dudas con Kori</h3>
-        <p>Conectando corazones, fortaleciendo lazos.</p>
-        <div class="chat-container">
-            <h4>Chatea con Kori</h4>
-            <p>¿Tienes alguna duda? ¡Chatea con nuestro bot Kori y obtén respuestas rápidas!</p>
-
-            <!-- Contenedor para el bot de Tawk.to -->
-            <div id="tawkto-widget"></div>
-        </div>
-        <button class="boton-retroceder" onclick="mostrarRecuadros()">Volver a los recuadros</button>
-    </div>
-
-    <script>
-        // Función para cargar el bot de Tawk.to
-        function cargarTawkTo() {
-            var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-            (function () {
-                var s1 = document.createElement("script"),
-                    s0 = document.getElementsByTagName("script")[0];
-                s1.async = true;
-                s1.src = 'https://embed.tawk.to/67a4684e3a842732607a6c65/1ijd3esfj';
-                s1.charset = 'UTF-8';
-                s1.setAttribute('crossorigin', '*');
-                s0.parentNode.insertBefore(s1, s0);
-            })();
-        }
-
-        // Función para mostrar la información del recuadro seleccionado
-        function mostrarInformacion(recuadro) {
-            // Oculta el inicio y los recuadros
-            document.getElementById('inicio').style.display = 'none';
-            document.getElementById('recuadros-container').style.display = 'none';
-
-            // Oculta toda la información
-            document.querySelectorAll('.informacion').forEach(info => {
-                info.style.display = 'none';
-            });
-
-            // Muestra la información correspondiente
-            const informacionDiv = document.getElementById(`informacion${recuadro}`);
-            informacionDiv.style.display = 'block';
-
-            // Si es la sección de "Tus dudas con Kori", carga el bot de Tawk.to
-            if (recuadro === 3) {
-                cargarTawkTo();
-            }
-        }
-
-        // Función para volver a los recuadros
-        function mostrarRecuadros() {
-            // Oculta toda la información
-            document.querySelectorAll('.informacion').forEach(info => {
-                info.style.display = 'none';
-            });
-
-            // Muestra el inicio y los recuadros
-            document.getElementById('inicio').style.display = 'flex';
-            document.getElementById('recuadros-container').style.display = 'flex';
-        }
-
-        // Cuenta regresiva
-        let tiempoRestante = 3; // Tiempo en segundos
-        const cuentaRegresiva = document.getElementById('tiempo');
-        const recuadrosContainer = document.getElementById('recuadros-container');
-        const titulo = document.getElementById('titulo');
-
-        function iniciarCuentaRegresiva() {
-            const intervalo = setInterval(() => {
-                tiempoRestante--;
-                cuentaRegresiva.textContent = tiempoRestante;
-
-                if (tiempoRestante <= 0) {
-                    clearInterval(intervalo);
-                    document.getElementById('cuenta-regresiva').style.display = 'none'; // Oculta la cuenta regresiva
-                    recuadrosContainer.style.display = 'flex'; // Muestra los recuadros
-                    titulo.classList.add('reducido'); // Reduce el tamaño del título
+            @keyframes float {
+                0%, 100% {
+                    transform: translateY(0); /* Posición inicial y final */
                 }
-            }, 1000); // Actualiza cada segundo
-        }
-
-        // Iniciar la cuenta regresiva al cargar la página
-        iniciarCuentaRegresiva();
-
-        // Función para generar círculos
-        const colors = [
-            "#ffcccb", "#a2d5f2", "#ffd3b6", "#c8e6c9", "#e6c8e6",
-            "#f0e68c", "#ffb6c1", "#add8e6", "#dda0dd", "#98fb98"
-        ];
-
-        function getRandomNumber(min, max) {
-            return Math.random() * (max - min) + min;
-        }
-
-        function createCircle() {
-            const circle = document.createElement("div");
-            circle.classList.add("circle");
-
-            const size = getRandomNumber(30, 200);
-            circle.style.width = `${size}px`;
-            circle.style.height = `${size}px`;
-
-            circle.style.top = `${getRandomNumber(0, 100)}%`;
-            circle.style.left = `${getRandomNumber(0, 100)}%`;
-
-            circle.style.backgroundColor = colors[Math.floor(getRandomNumber(0, colors.length))];
-            circle.style.animationDuration = `${getRandomNumber(5, 15)}s`;
-
-            return circle;
-        }
-
-        function addCircles(numCircles) {
-            const container = document.getElementById("circles-container");
-            for (let i = 0; i < numCircles; i++) {
-                const circle = createCircle();
-                container.appendChild(circle);
+                50% {
+                    transform: translateY(-20px); /* Movimiento hacia arriba */
+                }
             }
-        }
 
-        // Generar 30 círculos
-        addCircles(30);
-    </script>
-</body>
-</html>
+            /* Estilos generales de la página */
+            body, html {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                font-family: 'Arial', sans-serif;
+                text-align: center;
+                scroll-behavior: smooth; /* Desplazamiento suave */
+            }
+
+            /* Estilos para la sección de inicio */
+            #inicio {
+                background-size: cover;
+                background-position: center;
+                height: 100vh; /* Ocupa toda la altura de la pantalla */
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                flex-direction: column;
+            }
+
+            #inicio h1 {
+                font-size: 4rem;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra para el texto */
+                background-color: rgba(0, 0, 0, 0.6); /* Fondo semitransparente */
+                padding: 20px 40px;
+                border-radius: 15px;
+                border: 2px solid white;
+                transition: font-size 0.5s ease; /* Transición suave para el tamaño */
+            }
+
+            #inicio h1.reducido {
+                font-size: 2rem; /* Tamaño reducido después de la cuenta regresiva */
+            }
+
+            /* Estilos para los recuadros interactivos y pag */
+            .recuadros-container {
+                display: none; /* Oculto inicialmente */
+                justify-content: space-around;
+                margin-top: 20px;
+            }
+
+            .recuadro {
+                width: 30%;
+                padding: 20px;
+                background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
+                border-radius: 10px;
+                cursor: pointer;
+                transition: background-color 0.3s ease, transform 0.3s ease; /* Efectos al pasar el mouse */
+                border: 2px solid #007BFF; /* Borde azul */
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+            }
+
+            .recuadro:hover {
+                background-color: rgba(255, 255, 255, 1); /* Fondo más sólido al pasar el mouse */
+                transform: scale(1.05); /* Efecto de escala */
+            }
+
+            .recuadro h2 {
+                font-size: 1.5rem;
+                color: #007BFF; /* Color azul para los títulos */
+            }
+
+            .recuadro img {
+                width: 50%;
+                height: auto;
+                border-radius: 10px;
+                margin-bottom: 10px;
+            }
+
+            .recuadro p {
+                font-size: 1rem;
+                color: #333; /* Color de texto oscuro */
+                text-align: justify;
+            }
+
+            .iframe {
+                width: 100%;
+                height: 500px;
+                max-width: 100%;
+            }
+
+            .iframe {
+                margin-top: 20px; /* Ajusta este valor según tus necesidades */
+            }
+
+            /* Estilos para las secciones de información */
+            .informacion {
+                display: none;
+                margin-top: 20px;
+                padding: 20px;
+                background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
+                border-radius: 10px;
+                max-width: 800px;
+                margin-left: auto;
+                margin-right: auto;
+                text-align: left;
+                animation: fadeIn 0.5s ease-in-out; /* Animación de aparición */
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0; /* Inicia invisible */
+                }
+                to {
+                    opacity: 1; /* Termina visible */
+                }
+            }
+
+            .informacion h3 {
+                font-size: 2rem;
+                color: #007BFF; /* Color azul para los títulos */
+                text-align: center;
+            }
+
+            .informacion p {
+                font-size: 1.1rem;
+                color: #333; /* Color de texto oscuro */
+            }
+
+            .informacion form {
+                margin-top: 20px;
+            }
+
+            .informacion label {
+                display: block;
+                font-weight: bold;
+                margin-bottom: 10px;
+                color: #333; /* Color de texto oscuro */
+            }
+
+            .informacion textarea,
+            .informacion input[type="text"],
+            .informacion input[type="radio"] {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 8px;
+                font-size: 1rem;
+                resize: vertical; /* Permite redimensionar verticalmente */
+                margin-bottom: 15px;
+            }
+
+            .informacion textarea {
+                min-height: 100px; /* Altura mínima para los textareas */
+            }
+
+            .informacion button {
+                display: block;
+                width: 100%;
+                padding: 12px;
+                background-color: #007BFF; /* Color azul */
+                color: white;
+                border: none;
+                border-radius: 8px;
+                font-size: 1rem;
+                cursor: pointer;
+                transition: background-color 0.3s ease; /* Efecto de transición */
+            }
+
+            .informacion button:hover {
+                background-color: #0056b3; /* Color azul más oscuro al pasar el mouse */
+            }
+
+            /* Estilos para el contenedor de video y concepto */
+            .video-concept-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+
+            .video-container {
+                width: 100%;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .video-container img {
+                width: 100%;
+                height: auto;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+            }
+
+            .concept-container {
+                padding: 20px;
+                background-color: rgba(249, 249, 249, 0.95); /* Fondo semitransparente */
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+            }
+
+            .concept-container h4 {
+                margin-top: 0;
+                font-size: 1.5rem;
+                color: #007BFF; /* Color azul para los títulos */
+            }
+
+            .concept-container p {
+                font-size: 1rem;
+                line-height: 1.6;
+                color: #333; /* Color de texto oscuro */
+            }
+
+            .video-container iframe {
+                width: 100%;
+                max-width: 560px; /* Ancho máximo del video */
+                height: 315px; /* Altura fija */
+                border: none; /* Elimina el borde predeterminado */
+                border-radius: 10px; /* Bordes redondeados */
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+            }
+
+            /* Estilos para la sección de motivación */
+            .motivacion {
+                background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro semitransparente */
+                color: white;
+                padding: 20px;
+                margin-top: 20px;
+                border-radius: 10px;
+                border: 2px solid white;
+                font-size: 1.2rem;
+                max-width: 800px;
+                margin-left: auto;
+                margin-right: auto;
+                text-align: center;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
+            }
+
+            /* Estilos para el chat */
+            .chat-container {
+                max-width: 600px;
+                margin: 0 auto;
+                text-align: center;
+                padding: 20px;
+                background-color: rgba(249, 249, 249, 0.95); /* Fondo semitransparente */
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+            }
+
+            .chat-container h4 {
+                font-size: 1.5rem;
+                color: #007BFF; /* Color azul para los títulos */
+                margin-bottom: 10px;
+            }
+
+            .chat-container p {
+                font-size: 1rem;
+                color: #333; /* Color de texto oscuro */
+                margin-bottom: 20px;
+            }
+
+            /* Estilos para el botón de retroceder */
+            .boton-retroceder {
+                display: block;
+                margin: 20px auto;
+                padding: 10px 20px;
+                background-color: #007BFF; /* Color azul */
+                color: white;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: background-color 0.3s ease; /* Efecto de transición */
+            }
+
+            .boton-retroceder:hover {
+                background-color: #0056b3; /* Color azul más oscuro al pasar el mouse */
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Fondo animado de círculos -->
+        <div class="circles-container" id="circles-container"></div>
+
+        <!-- Contenido principal -->
+        <div id="inicio">
+            <h1 id="titulo">WILHELM NOS AYUDA</h1>
+            <p id="cuenta-regresiva" style="font-size: 1.5rem; margin-top: 20px;">Comenzando en <span id="tiempo">3</span> segundos...</p>
+
+            <!-- Recuadros interactivos -->
+            <div class="recuadros-container" id="recuadros-container">
+                <div class="recuadro" onclick="mostrarInformacion(1)">
+                    <img src="Imagenes/conocete.jpg" alt="Conócete a ti mismo">
+                    <h2>Conócete a ti mismo</h2>
+                    <p>Descubre quién eres, tus fortalezas y debilidades para mejorar tu autoconocimiento.</p>
+                </div>
+                <div class="recuadro" onclick="mostrarInformacion(2)">
+                    <img src="Imagenes/potencial.jpg" alt="Activando tu potencial">
+                    <h2>Activando tu potencial</h2>
+                    <p>Aprende técnicas y estrategias para maximizar tu potencial y alcanzar tus metas.</p>
+                </div>
+                <div class="recuadro" onclick="mostrarInformacion(3)">
+                    <img src="Imagenes/dudas.jpg" alt="Tus dudas con Kori">
+                    <h2>Tus dudas con Kori</h2>
+                    <p>Resuelve tus dudas y obtén respuestas rápidas con nuestro asistente virtual Kori.</p>
+                </div>
+            </div>
+        </div>
+        
+
+        <!-- Información de los recuadros -->
+        <div id="informacion1" class="informacion">
+            <h3>Conócete a ti mismo</h3>
+            <p>Aquí encontrarás información y herramientas para conocerte mejor y descubrir tus fortalezas.</p>
+            <form>
+                <ol>
+                    <li>
+                        <label for="pregunta1">¿Qué actividades te hacen sentir más feliz y realizado?</label>
+                        <textarea id="pregunta1" name="pregunta1" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>
+                    </li>
+                    <li>
+                        <label for="pregunta2">¿Cuáles son tus mayores fortalezas y cómo las utilizas en tu día a día?</label>
+                        <textarea id="pregunta2" name="pregunta2" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>
+                    </li>
+                    <li>
+                        <label for="pregunta3">¿Qué valores son más importantes para ti y por qué?</label>
+                        <textarea id="pregunta3" name="pregunta3" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>
+                    </li>
+                    <li>
+                        <label for="pregunta4">¿Cuáles son tus metas a corto y largo plazo?</label>
+                        <textarea id="pregunta4" name="pregunta4" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>
+                    </li>
+                    <li>
+                        <label for="pregunta5">¿Qué miedos o inseguridades te impiden avanzar?</label>
+                        <textarea id="pregunta5" name="pregunta5" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>
+                    </li>
+                    <li>
+                        <label for="pregunta6">¿Cómo te describirías a ti mismo en tres palabras?</label>
+                        <input type="text" id="pregunta6" name="pregunta6" placeholder="Escribe tu respuesta aquí...">
+                    </li>
+                    <li>
+                        <label for="pregunta7">¿Qué habilidades te gustaría desarrollar o mejorar?</label>
+                        <textarea id="pregunta7" name="pregunta7" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>
+                    </li>
+                    <li>
+                        <label for="pregunta8">¿Qué te gustaría cambiar de tu vida actual y por qué?</label>
+                        <textarea id="pregunta8" name="pregunta8" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>
+                    </li>
+                </ol>
+                <div>
+            <!-- Iframe para incrustar la página externa -->
+        <iframe src="https://www.playbuzz.com/dyegoriveros10/qu-dj-ser-a-tu-mejor-amigo" width="100%" height="500px" style="border:none;"></iframe>
+        </div>
+            </form>
+            <button class="boton-retroceder" onclick="mostrarRecuadros()">Volver a los recuadros</button>
+        </div>
+        <div id="informacion2" class="informacion">
+            <h3>Activando tu potencial</h3>
+            <p>Descubre cómo maximizar tu potencial y alcanzar tus metas con nuestros recursos especializados.</p>
+            <form>
+                <ol>
+                    <li>
+                        <label>¿Cómo calificarías tu capacidad para organizar tu tiempo y cumplir con tus responsabilidades?</label>
+                        <div>
+                            <input type="radio" id="tiempo-muy-buena" name="organizacion-tiempo" value="Muy Buena">
+                            <label for="tiempo-muy-buena">Muy Buena</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="tiempo-regular" name="organizacion-tiempo" value="Regular">
+                            <label for="tiempo-regular">Regular</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="tiempo-muy-mala" name="organizacion-tiempo" value="Muy Mala">
+                            <label for="tiempo-muy-mala">Muy Mala</label>
+                        </div>
+                    </li>
+                    <li>
+                        <label>¿Qué actividades te generan más estrés o emociones negativas en tu día a día?</label>
+                        <div>
+                            <input type="radio" id="estres-estudio" name="actividades-estres" value="Estudio">
+                            <label for="estres-estudio">Estudio</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="estres-familia" name="actividades-estres" value="Tiempo en familia">
+                            <label for="estres-familia">Tiempo en familia</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="estres-amigos" name="actividades-estres" value="Relaciones con amigos o pareja">
+                            <label for="estres-amigos">Relaciones con amigos o pareja</label>
+                        </div>
+                    </li>
+                    <li>
+                        <label>Cuando sientes que te falta tiempo, ¿cómo sueles reaccionar?</label>
+                        <div>
+                            <input type="radio" id="reaccion-procrastinar" name="reaccion-tiempo" value="Me siento abrumado y procrastino">
+                            <label for="reaccion-procrastinar">Me siento abrumado y procrastino</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="reaccion-organizar" name="reaccion-tiempo" value="Intento organizarme, pero no sé cómo">
+                            <label for="reaccion-organizar">Intento organizarme, pero no sé cómo</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="reaccion-planificacion" name="reaccion-tiempo" value="Hago lo que puedo sin planificación">
+                            <label for="reaccion-planificacion">Hago lo que puedo sin planificación</label>
+                        </div>
+                    </li>
+                    <li>
+                        <label>¿Qué te gustaría mejorar más en tu vida diaria?</label>
+                        <div>
+                            <input type="radio" id="mejorar-organizacion" name="mejorar-vida" value="La organización y el tiempo">
+                            <label for="mejorar-organizacion">La organización y el tiempo</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="mejorar-habitos" name="mejorar-vida" value="Establecer hábitos saludables como la lectura, hacer ejercicio, etc.">
+                            <label for="mejorar-habitos">Establecer hábitos saludables como la lectura, hacer ejercicio, etc.</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="mejorar-motivacion" name="mejorar-vida" value="Mejorar la motivación y enfoque de metas">
+                            <label for="mejorar-motivacion">Mejorar la motivación y enfoque de metas</label>
+                        </div>
+                    </li>
+                    <li>
+                        <label>¿Cómo influyen tus emociones en la forma en que gestionas tus actividades diarias?</label>
+                        <div>
+                            <input type="radio" id="emociones-estres" name="emociones-gestion" value="Cuando estoy estresado o ansioso me cuesta mucho organizarme y completar mis tareas.">
+                            <label for="emociones-estres">Cuando estoy estresado o ansioso me cuesta mucho organizarme y completar mis tareas.</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="emociones-felicidad" name="emociones-gestion" value="Si estoy feliz o motivado/a, gestiono mejor mis actividades.">
+                            <label for="emociones-felicidad">Si estoy feliz o motivado/a, gestiono mejor mis actividades.</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="emociones-distraccion" name="emociones-gestion" value="Mis emociones me distraen, pero intento avanzar con mis tareas aunque me cueste.">
+                            <label for="emociones-distraccion">Mis emociones me distraen, pero intento avanzar con mis tareas aunque me cueste.</label>
+                        </div>
+                    </li>
+                </ol>
+            </form>
+
+            <!-- Video y concepto -->
+            <div class="video-concept-container">
+                <div class="video-container">
+                    <img src="Imagenes/img1.png" alt="Concentración">
+                </div>
+                <div class="concept-container">
+                    <h4>La concentración</h4>
+                    <p>
+                        ¿Dificultades para concentrarte? La concentración es clave para alcanzar tus metas, pero muchas veces las distracciones y el desorden nos juegan en contra. En este video, descubrirás formas prácticas y efectivas para mantener tu enfoque y trabajar de manera más eficiente. Te compartimos algunos cambios simples que pueden hacer una gran diferencia en tu productividad y en cómo gestionas tu tiempo. ¡Dale play y comienza a mejorar tu concentración de inmediato!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Video incrustado de YouTube -->
+            <div class="video-container" style="margin-top: 20px; text-align: center;">
+                <iframe 
+                    width="560" 
+                    height="315" 
+                    src="https://www.youtube.com/embed/9GYwrGq4Rzs" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <!-- Imagen a la derecha y concepto a la izquierda -->
+            <div class="video-concept-container reverse">
+                <div class="concept-container">
+                    <h4>¿Cómo gestionar tu tiempo?</h4>
+                    <p>
+                        La gestión del tiempo es esencial para ser productivo y sentirte más tranquilo en tu día a día. En este video, te compartimos algunas estrategias clave para aprovechar mejor tu tiempo, establecer prioridades claras y mantenerte enfocado en lo que realmente importa. Con pequeños ajustes, podrás tomar el control de tu jornada y avanzar de forma más efectiva hacia tus objetivos. ¡No te lo pierdas y empieza a organizar tu tiempo de una manera mucho más eficiente y productiva!
+                    </p>
+                </div>
+                <div class="video-container">
+                    <img src="Imagenes/img2.png" alt="Gestión del tiempo">
+                </div>
+            </div>
+
+            <!-- Video incrustado de YouTube -->
+            <div class="video-container" style="margin-top: 20px; text-align: center;">
+                <iframe 
+                    width="560" 
+                    height="315" 
+                    src="https://www.youtube.com/embed/trQZnMF_pwQ" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <!-- Motivación -->
+            <div class="motivacion">
+                <p>
+                    "Sabemos que ser adolescente puede ser complicado, pero en esta sección
+                    encontrarás testimonios y consejos de docentes que están aquí para apoyarte. Ellos
+                    comparten sus experiencias y perspectivas, mostrándote que, aunque a veces
+                    parezca difícil, siempre tendrás la capacidad de sacar tu mejor versión."
+                </p>
+            </div>
+            <button class="boton-retroceder" onclick="mostrarRecuadros()">Volver a los recuadros</button>
+        </div>
+        <div id="informacion3" class="informacion">
+            <h3>Tus dudas con Kori</h3>
+            <p>Conectando corazones, fortaleciendo lazos.</p>
+            <div class="chat-container">
+                <h4>Chatea con Kori</h4>
+                <p>¿Tienes alguna duda? ¡Chatea con nuestro bot Kori y obtén respuestas rápidas!</p>
+
+                <!-- Contenedor para el bot de Tawk.to -->
+                <div id="tawkto-widget"></div>
+            </div>
+            <button class="boton-retroceder" onclick="mostrarRecuadros()">Volver a los recuadros</button>
+        </div>
+
+        <script>
+            // Función para cargar el bot de Tawk.to
+            function cargarTawkTo() {
+                var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+                (function () {
+                    var s1 = document.createElement("script"),
+                        s0 = document.getElementsByTagName("script")[0];
+                    s1.async = true;
+                    s1.src = 'https://embed.tawk.to/67a4684e3a842732607a6c65/1ijd3esfj';
+                    s1.charset = 'UTF-8';
+                    s1.setAttribute('crossorigin', '*');
+                    s0.parentNode.insertBefore(s1, s0);
+                })();
+            }
+
+            // Función para mostrar la información del recuadro seleccionado
+            function mostrarInformacion(recuadro) {
+                // Oculta el inicio y los recuadros
+                document.getElementById('inicio').style.display = 'none';
+                document.getElementById('recuadros-container').style.display = 'none';
+
+                // Oculta toda la información
+                document.querySelectorAll('.informacion').forEach(info => {
+                    info.style.display = 'none';
+                });
+
+                // Muestra la información correspondiente
+                const informacionDiv = document.getElementById(`informacion${recuadro}`);
+                informacionDiv.style.display = 'block';
+
+                // Si es la sección de "Tus dudas con Kori", carga el bot de Tawk.to
+                if (recuadro === 3) {
+                    cargarTawkTo();
+                }
+            }
+
+            // Función para volver a los recuadros
+            function mostrarRecuadros() {
+                // Oculta toda la información
+                document.querySelectorAll('.informacion').forEach(info => {
+                    info.style.display = 'none';
+                });
+
+                // Muestra el inicio y los recuadros
+                document.getElementById('inicio').style.display = 'flex';
+                document.getElementById('recuadros-container').style.display = 'flex';
+            }
+
+            // Cuenta regresiva
+            let tiempoRestante = 3; // Tiempo en segundos
+            const cuentaRegresiva = document.getElementById('tiempo');
+            const recuadrosContainer = document.getElementById('recuadros-container');
+            const titulo = document.getElementById('titulo');
+
+            function iniciarCuentaRegresiva() {
+                const intervalo = setInterval(() => {
+                    tiempoRestante--;
+                    cuentaRegresiva.textContent = tiempoRestante;
+
+                    if (tiempoRestante <= 0) {
+                        clearInterval(intervalo);
+                        document.getElementById('cuenta-regresiva').style.display = 'none'; // Oculta la cuenta regresiva
+                        recuadrosContainer.style.display = 'flex'; // Muestra los recuadros
+                        titulo.classList.add('reducido'); // Reduce el tamaño del título
+                    }
+                }, 1000); // Actualiza cada segundo
+            }
+
+            // Iniciar la cuenta regresiva al cargar la página
+            iniciarCuentaRegresiva();
+
+            // Función para generar círculos
+            const colors = [
+                "#ffcccb", "#a2d5f2", "#ffd3b6", "#c8e6c9", "#e6c8e6",
+                "#f0e68c", "#ffb6c1", "#add8e6", "#dda0dd", "#98fb98"
+            ];
+
+            function getRandomNumber(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            function createCircle() {
+                const circle = document.createElement("div");
+                circle.classList.add("circle");
+
+                const size = getRandomNumber(30, 200);
+                circle.style.width = `${size}px`;
+                circle.style.height = `${size}px`;
+
+                circle.style.top = `${getRandomNumber(0, 100)}%`;
+                circle.style.left = `${getRandomNumber(0, 100)}%`;
+
+                circle.style.backgroundColor = colors[Math.floor(getRandomNumber(0, colors.length))];
+                circle.style.animationDuration = `${getRandomNumber(5, 15)}s`;
+
+                return circle;
+            }
+
+            function addCircles(numCircles) {
+                const container = document.getElementById("circles-container");
+                for (let i = 0; i < numCircles; i++) {
+                    const circle = createCircle();
+                    container.appendChild(circle);
+                }
+            }
+
+            // Generar 30 círculos
+            addCircles(30);
+        </script>
+    </body>
+    </html> 
