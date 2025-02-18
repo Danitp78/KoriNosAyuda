@@ -67,6 +67,20 @@
                 font-size: 2rem; /* Tamaño reducido después de la cuenta regresiva */
             }
 
+            #imagen-esquina {
+                position: fixed; /* Fija la imagen en la pantalla */
+                top: 0;          /* Coloca la imagen en la parte superior */
+                left: 0;         /* Coloca la imagen en la parte izquierda */
+                z-index: 1000;   /* Asegura que la imagen esté por encima de otros elementos */
+                padding: 10px;   /* Añade un poco de espacio alrededor de la imagen */
+            }
+
+            #imagen-esquina img {
+                width: 100px;    /* Ajusta el tamaño de la imagen */
+                height: auto;    /* Mantiene la proporción de la imagen */
+                border-radius: 20px; /* Opcional: Añade bordes redondeados */
+            }
+
             /* Estilos para los recuadros interactivos y pag */
             .recuadros-container {
                 display: none; /* Oculto inicialmente */
@@ -330,6 +344,10 @@
                     <p>Resuelve tus dudas y obtén respuestas rápidas con nuestro asistente virtual Kori.</p>
                 </div>
             </div>
+            <!-- Imagen en la esquina superior izquierda -->
+        <div id="imagen-esquina">
+            <img src="Imagenes/QR.png" alt="Escanéame">
+        </div>
         </div>
         
 
